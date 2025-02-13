@@ -19,4 +19,4 @@ class DatabaseSeeder extends Seeder
     }
 }
 // kita memanggil class rolestableseeder, PermissionTableUser, UserTableSeeder dalam method run
-// Proses akan di eksekusi secara berurutsn 
+// Proses akan di eksekusi secara berurutan
