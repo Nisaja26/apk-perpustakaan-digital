@@ -117,3 +117,5 @@ class PermissionController extends Controller implements HasMiddleware
         return back();
     }
 }
+// Kode di atas adalah implementasi controller di Laravel yang memungkinkan pengelolaan izin (permissions) dalam aplikasi. Dengan menggunakan model Permission, middleware untuk mengatur akses, validasi untuk memastikan data yang benar,
+//  serta Inertia.js untuk merender tampilan, controller ini mengelola operasi dasar CRUD untuk entitas permission.
