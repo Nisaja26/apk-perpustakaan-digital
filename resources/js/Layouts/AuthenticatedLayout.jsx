@@ -1,13 +1,33 @@
+// impor komponent tampilan logo aplikasi
 import ApplicationLogo from '@/Components/ApplicationLogo';
+
+// komponen dropdown yang digunakan untuk menampilkan menu user
 import Dropdown from '@/Components/Dropdown';
+
+// untuk membuat tautan navigasi di bagian desktop.
 import NavLink from '@/Components/NavLink';
+
+// untuk tautan navigasi di versi mobile
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
+
+// fungsi Link dan hook usePage dari Inertia.js. 
+// usePage digunakan untuk mengakses data yang diteruskan ke halaman, termasuk informasi pengguna yang terautentikasi.
 import { Link, usePage } from '@inertiajs/react';
+
+// untuk menangani state lokal
 import { useState } from 'react';
 
+// fungsi yang memeriksa apakah pengguna memiliki izin tertentu
+import hasAnyPermission from '@/Utils/Permissions';
+
+// children adalah konten utama halaman yang akan ditampilkan di bawah navigasi
 export default function AuthenticatedLayout({ header, children }) {
+
+    // Mengakses informasi pengguna dari props yang diteruskan oleh Inertia.js, 
+    // yang mencakup data pengguna yang terautentikasi.
     const user = usePage().props.auth.user;
 
+    // mengelola apakah menu dropdown navigasi di versi mobile ditampilkan atau tidak.
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);
 
@@ -23,6 +43,10 @@ export default function AuthenticatedLayout({ header, children }) {
                                 </Link>
                             </div>
 
+{/* NavLink untuk menampilkan tautan navigasi yang bisa diakses di layar desktop.
+NavLink memeriksa apakah halaman saat ini sesuai dengan rute yang diberikan
+asAnyPermission digunakan untuk memeriksa apakah pengguna memiliki izin untuk mengakses halaman tertentu, seperti halaman Permissions.
+*/}
                             <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                                 <NavLink
                                     href={route('dashboard')}
@@ -30,8 +54,19 @@ export default function AuthenticatedLayout({ header, children }) {
                                 >
                                     Dashboard
                                 </NavLink>
+
+                                {hasAnyPermission(['permissions index']) &&
+                                    <NavLink href={route('permissions.index')} active={route().current('permissions*')}>
+                                        Permissions
+                                    </NavLink>
+                                }
                             </div>
                         </div>
+
+                        {/* Dropdown: Menampilkan dropdown ketika pengguna mengklik nama
+                            berisi tautan untuk mengedit profil atau keluar dari aplikasi (logout).
+                            di-render hanya untuk pengguna yang sudah terautentikasi.
+                        */}
 
                         <div className="hidden sm:ms-6 sm:flex sm:items-center">
                             <div className="relative ms-3">
@@ -77,6 +112,8 @@ export default function AuthenticatedLayout({ header, children }) {
                                 </Dropdown>
                             </div>
                         </div>
+
+                      
 
                         <div className="-me-2 flex items-center sm:hidden">
                             <button
@@ -134,6 +171,11 @@ export default function AuthenticatedLayout({ header, children }) {
                         >
                             Dashboard
                         </ResponsiveNavLink>
+                        {hasAnyPermission(['permissions index']) &&
+                            <ResponsiveNavLink href={route('permissions.index')} active={route().current('permissions*')}>
+                                Permissions
+                            </ResponsiveNavLink>
+                        }
                     </div>
 
                     <div className="border-t border-gray-200 pb-1 pt-4">
@@ -174,3 +216,6 @@ export default function AuthenticatedLayout({ header, children }) {
         </div>
     );
 }
+// Kode ini mendefinisikan layout halaman untuk pengguna yang sudah terautentikasi dengan elemen navigasi yang responsif.
+// Navigasi di desktop dan mobile dikendalikan dengan komponen NavLink dan ResponsiveNavLink, serta dropdown menu untuk pengguna.
+// Penggunaan Inertia.js memungkinkan interaksi halaman tanpa perlu melakukan refresh halaman sepenuhnya, memberikan pengalaman pengguna yang lebih halus.

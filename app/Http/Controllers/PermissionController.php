@@ -6,6 +6,8 @@ namespace App\Http\Controllers;
 // untuk menangani permintaan HTTP dan validasi input
 use Illuminate\Http\Request;
 
+use Illuminate\Routing\Controllers\Middleware;
+
 // implementasi interface middleware
 use Illuminate\Routing\Controllers\HasMiddleware;
 
