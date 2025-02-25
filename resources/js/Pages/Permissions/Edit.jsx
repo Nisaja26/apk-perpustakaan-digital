@@ -50,7 +50,7 @@ export default function Edit({auth}) {
             onSuccess: () => {
                 Swal.fire({
                     title: 'Success!',
-                    text: 'Data telah di update!',
+                    text: 'Data telah di perbarui!',
                     icon: 'success',
                     showConfirmButton: false,
                     timer: 1500

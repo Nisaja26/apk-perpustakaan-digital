@@ -39,7 +39,7 @@ export default function Create({auth}) {
             onSuccess: () => {
                 Swal.fire({
                     title: 'Success!',
-                    text: 'Data created selesai!',
+                    text: 'Data berhasil di buat!',
                     icon: 'success',
                     showConfirmButton: false,
                     timer: 1500
