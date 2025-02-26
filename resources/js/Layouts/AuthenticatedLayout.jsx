@@ -1,41 +1,34 @@
-// impor komponent tampilan logo aplikasi
-import ApplicationLogo from '@/Components/ApplicationLogo';
+// Import logo aplikasi
+import ApplicationLogo from "@/Components/ApplicationLogo";
 
-// komponen dropdown yang digunakan untuk menampilkan menu user
-import Dropdown from '@/Components/Dropdown';
+// komponen untuk dropdown, navigasi link, dan navigasi responsif
+import Dropdown from "@/Components/Dropdown";
+import NavLink from "@/Components/NavLink";
+import ResponsiveNavLink from "@/Components/ResponsiveNavLink";
 
-// untuk membuat tautan navigasi di bagian desktop.
-import NavLink from '@/Components/NavLink';
+// untuk membuat navigasi yang terhubung ke halaman lain menggunakan Inertia.js.  usePage digunakan untuk mengakses informasi halaman dan data pengguna.
+import { Link, usePage } from "@inertiajs/react";
 
-// untuk tautan navigasi di versi mobile
-import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
+// untuk menyimpan dan mengelola state, digunakan di sini untuk toggle (menyembunyikan/menampilkan) dropdown navigasi
+import { useState } from "react";
 
-// fungsi Link dan hook usePage dari Inertia.js. 
-// usePage digunakan untuk mengakses data yang diteruskan ke halaman, termasuk informasi pengguna yang terautentikasi.
-import { Link, usePage } from '@inertiajs/react';
+// ntuk memeriksa apakah pengguna memiliki izin tertentu, mungkin untuk mengakses halaman yang berbeda berdasarkan peran pengguna
+import hasAnyPermission from "@/Utils/Permissions";
 
-// untuk menangani state lokal
-import { useState } from 'react';
-
-// fungsi yang memeriksa apakah pengguna memiliki izin tertentu
-import hasAnyPermission from '@/Utils/Permissions';
-
-// children adalah konten utama halaman yang akan ditampilkan di bawah navigasi
+// semua yang ada di navigasi
 export default function AuthenticatedLayout({ header, children }) {
-
-    // Mengakses informasi pengguna dari props yang diteruskan oleh Inertia.js, 
-    // yang mencakup data pengguna yang terautentikasi.
     const user = usePage().props.auth.user;
 
-    // mengelola apakah menu dropdown navigasi di versi mobile ditampilkan atau tidak.
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);
 
     return (
+        // bagian navbar
         <div className="min-h-screen bg-gray-100">
             <nav className="border-b border-gray-100 bg-white">
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div className="flex h-16 justify-between">
+                        {/* logo aplikasi dan menu navigasi */}
                         <div className="flex">
                             <div className="flex shrink-0 items-center">
                                 <Link href="/">
@@ -43,31 +36,36 @@ export default function AuthenticatedLayout({ header, children }) {
                                 </Link>
                             </div>
 
-{/* NavLink untuk menampilkan tautan navigasi yang bisa diakses di layar desktop.
-NavLink memeriksa apakah halaman saat ini sesuai dengan rute yang diberikan
-asAnyPermission digunakan untuk memeriksa apakah pengguna memiliki izin untuk mengakses halaman tertentu, seperti halaman Permissions.
-*/}
                             <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                                 <NavLink
-                                    href={route('dashboard')}
-                                    active={route().current('dashboard')}
+                                    href={route("dashboard")}
+                                    active={route().current("dashboard")}
                                 >
                                     Dashboard
                                 </NavLink>
 
-                                {hasAnyPermission(['permissions index']) &&
-                                    <NavLink href={route('permissions.index')} active={route().current('permissions*')}>
+                                {hasAnyPermission(["permissions index"]) && (
+                                    <NavLink
+                                        href={route("permissions.index")}
+                                        active={route().current("permissions*")}
+                                    >
                                         Permissions
                                     </NavLink>
-                                }
+                                )}
+                                {hasAnyPermission(["roles index"]) && (
+                                    <NavLink
+                                        href={route("roles.index")}
+                                        active={route().current("roles*")}
+                                    >
+                                        Roles
+                                    </NavLink>
+                                )}
+                               
+
                             </div>
                         </div>
 
-                        {/* Dropdown: Menampilkan dropdown ketika pengguna mengklik nama
-                            berisi tautan untuk mengedit profil atau keluar dari aplikasi (logout).
-                            di-render hanya untuk pengguna yang sudah terautentikasi.
-                        */}
-
+                        {/* dorpdown user, tampil nama pengguna yang sedang login, berisi pilihan profile edit / logout  */}
                         <div className="hidden sm:ms-6 sm:flex sm:items-center">
                             <div className="relative ms-3">
                                 <Dropdown>
@@ -97,12 +95,12 @@ asAnyPermission digunakan untuk memeriksa apakah pengguna memiliki izin untuk me
 
                                     <Dropdown.Content>
                                         <Dropdown.Link
-                                            href={route('profile.edit')}
+                                            href={route("profile.edit")}
                                         >
                                             Profile
                                         </Dropdown.Link>
                                         <Dropdown.Link
-                                            href={route('logout')}
+                                            href={route("logout")}
                                             method="post"
                                             as="button"
                                         >
@@ -113,13 +111,12 @@ asAnyPermission digunakan untuk memeriksa apakah pengguna memiliki izin untuk me
                             </div>
                         </div>
 
-                      
-
+                        {/* tampilan untuk aplikasi mobile */}
                         <div className="-me-2 flex items-center sm:hidden">
                             <button
                                 onClick={() =>
                                     setShowingNavigationDropdown(
-                                        (previousState) => !previousState,
+                                        (previousState) => !previousState
                                     )
                                 }
                                 className="inline-flex items-center justify-center rounded-md p-2 text-gray-400 transition duration-150 ease-in-out hover:bg-gray-100 hover:text-gray-500 focus:bg-gray-100 focus:text-gray-500 focus:outline-none"
@@ -133,8 +130,8 @@ asAnyPermission digunakan untuk memeriksa apakah pengguna memiliki izin untuk me
                                     <path
                                         className={
                                             !showingNavigationDropdown
-                                                ? 'inline-flex'
-                                                : 'hidden'
+                                                ? "inline-flex"
+                                                : "hidden"
                                         }
                                         strokeLinecap="round"
                                         strokeLinejoin="round"
@@ -144,8 +141,8 @@ asAnyPermission digunakan untuk memeriksa apakah pengguna memiliki izin untuk me
                                     <path
                                         className={
                                             showingNavigationDropdown
-                                                ? 'inline-flex'
-                                                : 'hidden'
+                                                ? "inline-flex"
+                                                : "hidden"
                                         }
                                         strokeLinecap="round"
                                         strokeLinejoin="round"
@@ -160,22 +157,37 @@ asAnyPermission digunakan untuk memeriksa apakah pengguna memiliki izin untuk me
 
                 <div
                     className={
-                        (showingNavigationDropdown ? 'block' : 'hidden') +
-                        ' sm:hidden'
+                        (showingNavigationDropdown ? "block" : "hidden") +
+                        " sm:hidden"
                     }
                 >
                     <div className="space-y-1 pb-3 pt-2">
                         <ResponsiveNavLink
-                            href={route('dashboard')}
-                            active={route().current('dashboard')}
+                            href={route("dashboard")}
+                            active={route().current("dashboard")}
                         >
                             Dashboard
                         </ResponsiveNavLink>
-                        {hasAnyPermission(['permissions index']) &&
-                            <ResponsiveNavLink href={route('permissions.index')} active={route().current('permissions*')}>
+                        {hasAnyPermission(["permissions index"]) && (
+                            <ResponsiveNavLink
+                                href={route("permissions.index")}
+                                active={route().current("permissions*")}
+                            >
                                 Permissions
                             </ResponsiveNavLink>
-                        }
+                        )}
+
+                        {hasAnyPermission(["roles index"]) && (
+                            <ResponsiveNavLink
+                                href={route("roles.index")}
+                                active={route().current("roles*")}
+                            >
+                                Roles
+                            </ResponsiveNavLink>
+                        )}
+
+                       
+
                     </div>
 
                     <div className="border-t border-gray-200 pb-1 pt-4">
@@ -189,12 +201,12 @@ asAnyPermission digunakan untuk memeriksa apakah pengguna memiliki izin untuk me
                         </div>
 
                         <div className="mt-3 space-y-1">
-                            <ResponsiveNavLink href={route('profile.edit')}>
+                            <ResponsiveNavLink href={route("profile.edit")}>
                                 Profile
                             </ResponsiveNavLink>
                             <ResponsiveNavLink
                                 method="post"
-                                href={route('logout')}
+                                href={route("logout")}
                                 as="button"
                             >
                                 Log Out
@@ -203,7 +215,12 @@ asAnyPermission digunakan untuk memeriksa apakah pengguna memiliki izin untuk me
                     </div>
                 </div>
             </nav>
+            {/* Pada tampilan mobile, menu navigasi tersembunyi hingga pengguna mengklik tombol menu (hamburger icon) untuk menampilkan dropdown navigasi. Di sini, showingNavigationDropdown
+            dikendalikan untuk menyembunyikan atau menampilkan daftar navigasi. Dropdown menu navigasi hanya muncul ketika showingNavigationDropdown bernilai true */}
 
+            {/* Bagian header memungkinkan kita untuk menampilkan elemen header yang dapat disesuaikan dengan props header yang diberikan. 
+            Konten utama (<main>{children}</main>) menampilkan konten halaman yang diberikan oleh komponen induk, yang dapat berupa apa saja sesuai kebutuhan halaman yang sedang ditampilkan.
+             */}
             {header && (
                 <header className="bg-white shadow">
                     <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
@@ -216,6 +233,9 @@ asAnyPermission digunakan untuk memeriksa apakah pengguna memiliki izin untuk me
         </div>
     );
 }
-// Kode ini mendefinisikan layout halaman untuk pengguna yang sudah terautentikasi dengan elemen navigasi yang responsif.
-// Navigasi di desktop dan mobile dikendalikan dengan komponen NavLink dan ResponsiveNavLink, serta dropdown menu untuk pengguna.
-// Penggunaan Inertia.js memungkinkan interaksi halaman tanpa perlu melakukan refresh halaman sepenuhnya, memberikan pengalaman pengguna yang lebih halus.
+// Layout ini dirancang untuk aplikasi web dengan navigasi responsif yang hanya menunjukkan opsi menu yang relevan berdasarkan izin pengguna.
+//  Menggunakan Tailwind CSS untuk styling, Inertia.js untuk routing, dan React untuk manajemen state dan komponen UI, layout ini memberikan pengalaman pengguna yang interaktif dan dinamis,
+//  terutama dalam hal navigasi dan pengelolaan sesi pengguna.
+
+
+
