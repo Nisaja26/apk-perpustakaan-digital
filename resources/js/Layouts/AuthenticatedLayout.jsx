@@ -36,33 +36,51 @@ export default function AuthenticatedLayout({ header, children }) {
                                 </Link>
                             </div>
 
-                            <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                            {/* tombol link page dan judul */}
+                            <div className="hidden sm:flex sm:space-x-8 sm:-my-px sm:ms-10">
+                                {/* Home Link */}
                                 <NavLink
                                     href={route("dashboard")}
                                     active={route().current("dashboard")}
+                                    className="flex items-center space-x-2 px-4 py-2 rounded-md text-gray-700 hover:bg-purple-400 hover:text-white transition-all duration-400"
                                 >
-                                    Dashboard
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M3 12l9-9 9 9" />
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M4 12v7a1 1 0 001 1h14a1 1 0 001-1v-7" />
+                                    </svg>
+                                    <span>Home</span>
                                 </NavLink>
 
+                                {/* Permissions Link */}
                                 {hasAnyPermission(["permissions index"]) && (
                                     <NavLink
                                         href={route("permissions.index")}
                                         active={route().current("permissions*")}
+                                        className="flex items-center space-x-2 px-4 py-2 rounded-md text-gray-700 hover:bg-purple-400 hover:text-white transition-all duration-400"
                                     >
-                                        Permissions
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M5 3l14 0m-7 4v12m-7-8h14" />
+                                        </svg>
+                                        <span>Permissions</span>
                                     </NavLink>
                                 )}
+
+                                {/* Roles Link */}
                                 {hasAnyPermission(["roles index"]) && (
                                     <NavLink
                                         href={route("roles.index")}
                                         active={route().current("roles*")}
+                                        className="flex items-center space-x-2 px-4 py-2 rounded-md text-gray-700 hover:bg-purple-400 hover:text-white transition-all duration-400"
                                     >
-                                        Roles
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 11c1.5 0 2-1.5 2-2s-.5-2-2-2-2 1.5-2 2 0 2 .5 2zM5 21h14M19 3h-1V2h-2v1H8V2H6v1H5c-1 0-1 1-1 1v18c0 1 1 1 1 1h14c1 0 1-1 1-1V4c0-1-1-1-1-1z" />
+                                        </svg>
+                                        <span>Roles</span>
                                     </NavLink>
                                 )}
-                               
-
                             </div>
+
+
                         </div>
 
                         {/* dorpdown user, tampil nama pengguna yang sedang login, berisi pilihan profile edit / logout  */}
@@ -186,7 +204,7 @@ export default function AuthenticatedLayout({ header, children }) {
                             </ResponsiveNavLink>
                         )}
 
-                       
+
 
                     </div>
 
