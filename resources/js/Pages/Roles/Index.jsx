@@ -11,27 +11,23 @@ import { Head, usePage } from "@inertiajs/react";
 import Search from "@/Components/Search";
 // izin pengguna untuk mengakses
 import hasAnyPermission from "@/Utils/Permissions";
-
-
 export default function Index({ auth }) {
     // destruct permissions props
     const { roles ,filters} = usePage().props;
 
     return (
         // halaman hanya dapat diakses oleh user yang ter authtentikasi
-        <AuthenticatedLayout
+                <AuthenticatedLayout
             user={auth.user}
-            // menampilkan judul halaman
+             // menampilkan judul halaman
             header={
                 <h2 className="font-semibold text-xl text-gray-800 leading-tight">
                     Roles
                 </h2>
             }
         >
-            {/* inertia.js mengatur title halaman */}
+             {/* inertia.js mengatur title halaman */}
             <Head title={"Roles"} />
-
-            {/* membungkus halaman  */}
             <Container>
                 <div className="mb-4 flex items-center justify-between gap-4">
                     {/* button muncul jika user telah memiliki izin akses */}
@@ -61,7 +57,7 @@ export default function Index({ auth }) {
                             </tr>
                         </Table.Thead>
 
-                        {/* Menampilkan data roles dalam bentuk baris tabel */}
+                         {/* Menampilkan data roles dalam bentuk baris tabel */}
                         <Table.Tbody>
                             {roles.data.map((role, i) => (
                                 <tr key={i}>
@@ -126,7 +122,7 @@ export default function Index({ auth }) {
                     </Table>
                 </Table.Card>
 
-                {/* Jika jumlah halaman terakhir (roles.last_page) lebih dari 1, maka komponen Pagination akan ditampilkan.
+                 {/* Jika jumlah halaman terakhir (roles.last_page) lebih dari 1, maka komponen Pagination akan ditampilkan.
                  Komponen ini memungkinkan navigasi antar halaman dalam data roles */}
                 <div className="flex items-center justify-center">
                     {roles.last_page !== 1 && (
