@@ -64,26 +64,36 @@ export default function Index({ auth }) {
                             </tr>
                         </Table.Thead>
                         <Table.Tbody>
+                            {/*  untuk mengiterasi melalui array */}
                             {users.data.map((user, i) => (
+                                // untuk mengidentifikasi elemen yang sedang diproses.
+                                // users.data, yang berisi data pengguna. Untuk setiap elemen user (yang mewakili seorang pengguna),
+                                //  kita membuat baris <tr> baru. Variabel i adalah indeks saat ini dari array
                                 <tr key={i}>
                                     <Table.Td>
+                                        {/*  untuk menghitung nomor urut pengguna. */}
                                         {++i +
                                             (users.current_page - 1) *
+                                            // Menghitung offset untuk halaman saat ini
                                                 users.per_page}
                                     </Table.Td>
                                     <Table.Td>
+                                        {/* Menampilkan nama pengguna di dalam kolom tabel */}
                                         {user.name}
                                         <div className="text-sm text-gray-400">
+                                            {/*  Menampilkan alamat email pengguna */}
                                             {user.email}
                                         </div>
                                     </Table.Td>
                                     <Table.Td>
                                         <div className="flex items-center gap-2 flex-wrap">
+                                            {/* untuk mengiterasi array roles dari objek user */}
                                             {user.roles.map((role, i) => (
                                                 <span
                                                     className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-sky-100 text-sky-700"
                                                     key={i}
                                                 >
+                                                    {/*  Menampilkan nama peran pengguna */}
                                                     {role.name}
                                                 </span>
                                             ))}
