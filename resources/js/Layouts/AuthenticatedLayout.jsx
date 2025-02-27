@@ -78,6 +78,22 @@ export default function AuthenticatedLayout({ header, children }) {
                                         <span>Roles</span>
                                     </NavLink>
                                 )}
+
+                                {hasAnyPermission(['users index']) &&
+                                    <NavLink
+                                        href={route('users.index')}
+                                        active={route().current('users*')}
+                                        className="flex items-center space-x-2 px-4 py-2 rounded-md text-gray-700 hover:bg-purple-400 hover:text-white transition-all duration-400"
+
+                                    >
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zM5 21h14c0-2-2-3-4-3s-4 1-4 3H9c0-2-2-3-4-3s-4 1-4 3z" />
+                                        </svg>
+
+                                        <span>Users</span>
+                                    </NavLink>
+                                }
+
                             </div>
 
 
@@ -204,6 +220,14 @@ export default function AuthenticatedLayout({ header, children }) {
                             </ResponsiveNavLink>
                         )}
 
+                        {hasAnyPermission(['users index']) &&
+                            <ResponsiveNavLink
+                                href={route('users.index')}
+                                active={route().current('users*')}>
+
+                                Users
+                            </ResponsiveNavLink>
+                        }
 
 
                     </div>
