@@ -94,7 +94,23 @@ export default function AuthenticatedLayout({ header, children }) {
                                     </NavLink>
                                 }
 
-                                
+                                {hasAnyPermission(['books index']) &&
+                                    <NavLink
+                                        href={route('books.index')}
+                                        active={route().current('books*')}
+                                        className="flex items-center space-x-2 px-4 py-2 rounded-md text-gray-700 hover:bg-purple-400 hover:text-white transition-all duration-400"
+                                    >
+                                        {/* Ikon Buku */}
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M3 3h18v18H3V3z" />
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M3 3l18 18" />
+                                        </svg>
+                                        <span>Books</span>
+                                    </NavLink>
+                                }
+
+
+
                             </div>
 
 
@@ -230,7 +246,15 @@ export default function AuthenticatedLayout({ header, children }) {
                             </ResponsiveNavLink>
                         }
 
-                       
+                        {hasAnyPermission(['books index']) &&
+                            <ResponsiveNavLink
+                                href={route('books.index')}
+                                active={route().current('books*')}>
+
+                                Users
+                            </ResponsiveNavLink>
+                        }
+
 
                     </div>
 
