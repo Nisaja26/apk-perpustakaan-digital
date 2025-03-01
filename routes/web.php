@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Models\Book;
+use App\Models\Collection;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
@@ -43,6 +45,14 @@ Route::middleware('auth')->group(function () {
     
     // Route untuk menghapus profil pengguna
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    // Menampilkan buku menggunakan controller
+    Route::get('/books', [BookController::class, 'index'])->name('books.index');
+
+    // Menampilkan koleksi menggunakan controller
+    Route::get('/collections', [CollectionController::class, 'index'])->name('collections.index');
+
+
 });
 
 // Memuat file rute untuk autentikasi (login, register, dll.)
