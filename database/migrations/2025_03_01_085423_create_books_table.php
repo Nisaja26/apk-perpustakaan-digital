@@ -1,15 +1,11 @@
 <?php
 
-// menyediakan metode up() dan down()
 use Illuminate\Database\Migrations\Migration;
-// untuk mendefinisikan kolom-kolom dalam tabel
 use Illuminate\Database\Schema\Blueprint;
-// untuk membuat, mengubah, atau menghapus tabel di database
 use Illuminate\Support\Facades\Schema;
 
 class CreateBooksTable extends Migration
 {
-     //  untuk mendefinisikan perubahan yang akan dilakukan pada database
     public function up()
     {
         Schema::create('books', function (Blueprint $table) {
@@ -24,8 +20,6 @@ class CreateBooksTable extends Migration
 
     public function down()
     {
-        //  Menghapus tabel collections jika tabel tersebut ada
         Schema::dropIfExists('books');
     }
 }
-
