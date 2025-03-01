@@ -94,6 +94,7 @@ export default function AuthenticatedLayout({ header, children }) {
                                     </NavLink>
                                 }
 
+                                
                             </div>
 
 
@@ -229,6 +230,7 @@ export default function AuthenticatedLayout({ header, children }) {
                             </ResponsiveNavLink>
                         }
 
+                       
 
                     </div>
 
