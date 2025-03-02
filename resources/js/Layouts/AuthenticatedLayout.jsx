@@ -251,7 +251,7 @@ export default function AuthenticatedLayout({ header, children }) {
                                 href={route('books.index')}
                                 active={route().current('books*')}>
 
-                                Users
+                                Books
                             </ResponsiveNavLink>
                         }
 
