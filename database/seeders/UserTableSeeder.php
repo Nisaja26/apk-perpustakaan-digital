@@ -20,8 +20,8 @@ class UserTableSeeder extends Seeder
         // insert data user
         //create user
         $user = User::create([
-            'name'      => 'Syahrizaldev',
-            'email'     => 'izaldev@gmail.com',
+            'name'      => 'Nissa Admin',
+            'email'     => 'nissadmin@gmail.com',
             'password'  => bcrypt('password'),
         ]);
 
@@ -43,3 +43,4 @@ class UserTableSeeder extends Seeder
         $user->assignRole($role);
     }
 }
+// ini adalah akses untuk Admin karena mendapatkan semua akses
