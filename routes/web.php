@@ -47,7 +47,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     // Menampilkan buku menggunakan controller
-    Route::get('/books', [BookController::class, 'index'])->name('books.index');
+    // Route::get('/books', [BookController::class, 'index'])->name('books.index');
 
     // Menampilkan koleksi menggunakan controller
     Route::get('/collections', [CollectionController::class, 'index'])->name('collections.index');
