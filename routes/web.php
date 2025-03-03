@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\BookController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -20,31 +21,37 @@ Route::get('/', function () {
 
 // Route untuk halaman dashboard yang membutuhkan autentikasi dan verifikasi email
 Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard'); // Render tampilan Dashboard menggunakan Inertia
+    return Inertia::render('Dashboard'); // Render tampilan Dashboard menggunakan Inerti a
 })->middleware(['auth', 'verified']) // Middleware untuk memastikan pengguna sudah login dan verifikasi email
-  ->name('dashboard'); // Menamai route sebagai 'dashboard'
+    ->name('dashboard'); // Menamai route sebagai 'dashboard'
 
 // Grup route yang memerlukan autentikasi pengguna
 Route::middleware('auth')->group(function () {
     // Route untuk mengelola permissions (izin)
     Route::resource('/permissions', PermissionController::class);
-    
+
     // Route untuk mengelola roles (peran), mengecualikan method 'show'
     Route::resource('roles', RoleController::class)->except('show');
-    
+
     // Route untuk mengelola users (pengguna)
     Route::resource('/users', UserController::class);
-    
+
+    // Route untuk mengelola buku (books)
+    Route::resource('/books', BookController::class);
+
+    // Route untuk mengelola buku (collection)
+    Route::resource('/collections', BookController::class);
+
+
     // Route untuk mengedit profil pengguna
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    
+
     // Route untuk memperbarui profil pengguna
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    
+
     // Route untuk menghapus profil pengguna
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-   
 
 });
 
