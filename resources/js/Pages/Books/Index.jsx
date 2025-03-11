@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import Container from "@/Components/Container";
 import Table from "@/Components/Table";
@@ -24,10 +24,12 @@ export default function Index({ auth }) {
             <Head title={"Buku"} />
             <Container>
                 <div className="mb-4 flex items-center justify-between gap-4">
+                    {/* Tombol Tambah Buku hanya jika memiliki izin */}
                     {hasAnyPermission(["books create"]) && (
                         <Button type={"add"} url={route("books.create")} />
                     )}
                     <div className="w-full md:w-4/6">
+                        {/* Komponen pencarian */}
                         <Search
                             url={route("books.index")}
                             placeholder={"Cari data buku berdasarkan judul..."}
@@ -46,12 +48,12 @@ export default function Index({ auth }) {
                             </tr>
                         </Table.Thead>
                         <Table.Tbody>
+                            {/* Menampilkan data buku */}
                             {books.data.map((book, i) => (
                                 <tr key={i}>
                                     <Table.Td>
-                                        {++i +
-                                            (books.current_page - 1) *
-                                                books.per_page}
+                                        {/* Menampilkan nomor baris dengan pagination */}
+                                        {++i + (books.current_page - 1) * books.per_page}
                                     </Table.Td>
                                     <Table.Td>{book.title}</Table.Td>
                                     <Table.Td>
@@ -61,26 +63,18 @@ export default function Index({ auth }) {
                                     </Table.Td>
                                     <Table.Td>
                                         <div className="flex items-center gap-2">
-                                            {hasAnyPermission([
-                                                "books edit",
-                                            ]) && (
+                                            {/* Tombol Edit hanya jika memiliki izin */}
+                                            {hasAnyPermission(["books edit"]) && (
                                                 <Button
                                                     type={"edit"}
-                                                    url={route(
-                                                        "books.edit",
-                                                        book.id
-                                                    )}
+                                                    url={route("books.edit", book.id)}
                                                 />
                                             )}
-                                            {hasAnyPermission([
-                                                "books delete",
-                                            ]) && (
+                                            {/* Tombol Hapus hanya jika memiliki izin */}
+                                            {hasAnyPermission(["books delete"]) && (
                                                 <Button
                                                     type={"delete"}
-                                                    url={route(
-                                                        "books.destroy",
-                                                        book.id
-                                                    )}
+                                                    url={route("books.destroy", book.id)}
                                                 />
                                             )}
                                         </div>
@@ -90,6 +84,7 @@ export default function Index({ auth }) {
                         </Table.Tbody>
                     </Table>
                 </Table.Card>
+                {/* Menampilkan pagination jika lebih dari 1 halaman */}
                 <div className="flex items-center justify-center">
                     {books.last_page !== 1 && (
                         <Pagination links={books.links} />
