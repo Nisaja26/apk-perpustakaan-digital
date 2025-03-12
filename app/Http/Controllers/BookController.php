@@ -10,32 +10,38 @@ class BookController extends Controller
 {
     // Menampilkan daftar buku
     public function index()
-{
-    // Mengambil semua buku dengan relasi collection menggunakan eager loading
-    $books = Book::with('collection')->paginate(10);
+    {
+        // Mengambil semua buku dengan relasi collection menggunakan eager loading
+        $books = Book::with('collection')->paginate(10);
 
-    return Inertia::render('Books/Index', [
-        'books' => $books,
-    ]);
-}
+        return Inertia::render('Books/Index', [
+            'books' => $books,
+        ]);
+    }
 
     // Menyimpan buku baru
     public function store(Request $request)
-{
-    $request->validate([
-        'title' => 'required|string|max:255',
-        'author' => 'required|string|max:255',
-        'published_year' => 'required|date_format:Y',  // Menggunakan tahun
-    ]);
+    {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'author' => 'required|string|max:255',
+            'published_year' => 'required|date_format:Y',  // Menggunakan tahun
+        ]);
 
-    Book::create([
-        'title' => $request->title,
-        'author' => $request->author,
-        'published_year' => $request->published_year,
-        'collection_id' => $request->collection_id,  // Menyertakan ID koleksi
-    ]);
+        Book::create([
+            'title' => $request->title,
+            'author' => $request->author,
+            'published_year' => $request->published_year,
+            'collection_id' => $request->collection_id,  // Menyertakan ID koleksi
+        ]);
 
         return redirect()->route('books.index');
+    }
+
+
+    public function create()
+    {
+        return Inertia::render('Books/Create');
     }
 
     // Menampilkan form untuk mengedit buku

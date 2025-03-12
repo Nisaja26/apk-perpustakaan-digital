@@ -102,13 +102,13 @@ export default function AuthenticatedLayout({ header, children }) {
                                         className="flex items-center space-x-2 px-4 py-2 rounded-md text-gray-700 hover:bg-purple-400 hover:text-white transition-all duration-400"
                                     >
                                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
-                                            <path strokeLinecap="round" strokeLinejoin="round" d="M6 2v16c0 .55.45 1 1 1h10c.55 0 1-.45 1-1V2H6zm0 16V4h12v14H6z" />
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M4 5h16v14H4z" />
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M14 3v2M10 3v2M12 13v2M8 13v2M16 13v2" />
                                         </svg>
 
                                         <span>Books</span>
                                     </NavLink>
                                 }
-
 
                             </div>
 
