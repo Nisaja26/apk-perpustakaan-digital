@@ -1,12 +1,17 @@
 <?php
 
+// lokasi model
 namespace App\Models;
+// agar tidak bertabrakan dengan kelas lain
 
 // fitru fctory eloquent
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 // untuk membuat data palsu atau data dummy saat pengujian atau migrasi data
+
+// kelas dasar Model dari Laravel
 use Illuminate\Database\Eloquent\Model;
 
+// mendeklarasikan kelas collection
 class Category extends Model
 {
 
@@ -18,13 +23,14 @@ class Category extends Model
     // untuk mendefinisikan kolom-kolom yang boleh diisi secara massal
     protected $fillable = [
         'name',
-        // lokasi koleksi
+        // lokasi kategori
         'location'
     ];
 
-    // Relasi ke Books
+    // Relasi One-to-Many dengan model Book
     public function books()
     {
+        // kategori memiliki banyak buku
         return $this->hasMany(Book::class);
     }
 }
