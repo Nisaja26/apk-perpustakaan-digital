@@ -42,47 +42,28 @@ export default function Index({ auth }) {
                                 <Table.Th>#</Table.Th>
                                 <Table.Th>Judul Buku</Table.Th>
                                 <Table.Th>Penulis</Table.Th>
+                                <Table.Th>Koleksi</Table.Th>
+                                <Table.Th>Kategori</Table.Th>
                                 <Table.Th>Aksi</Table.Th>
+
                             </tr>
                         </Table.Thead>
                         <Table.Tbody>
                             {books.data.map((book, i) => (
-                                <tr key={i}>
-                                    <Table.Td>
-                                        {++i +
-                                            (books.current_page - 1) *
-                                                books.per_page}
-                                    </Table.Td>
+                                <tr key={book.id}>
+                                    <Table.Td>{++i + (books.current_page - 1) * books.per_page}</Table.Td>
                                     <Table.Td>{book.title}</Table.Td>
+                                    <Table.Td>{book.author}</Table.Td>
                                     <Table.Td>
-                                        <div className="text-sm text-gray-400">
-                                            {book.author}
-                                        </div>
+                                        {book.collection ? book.collection.name : 'Tidak ada koleksi'}
+                                    </Table.Td>
+                                    <Table.Td>
+                                        {book.category ? book.category.name : 'Tidak ada kategori'}
                                     </Table.Td>
                                     <Table.Td>
                                         <div className="flex items-center gap-2">
-                                            {hasAnyPermission([
-                                                "books edit",
-                                            ]) && (
-                                                <Button
-                                                    type={"edit"}
-                                                    url={route(
-                                                        "books.edit",
-                                                        book.id
-                                                    )}
-                                                />
-                                            )}
-                                            {hasAnyPermission([
-                                                "books delete",
-                                            ]) && (
-                                                <Button
-                                                    type={"delete"}
-                                                    url={route(
-                                                        "books.destroy",
-                                                        book.id
-                                                    )}
-                                                />
-                                            )}
+                                            <Button type="edit" url={route('books.edit', book.id)} />
+                                            <Button type="delete" url={route('books.destroy', book.id)} />
                                         </div>
                                     </Table.Td>
                                 </tr>

@@ -11,9 +11,9 @@ class BookController extends Controller
     // Menampilkan daftar buku
     public function index()
     {
-        // Mengambil semua buku dengan relasi collection menggunakan eager loading
-        $books = Book::with('collection')->paginate(10);
-
+        // Mengambil semua buku dengan relasi collection dan category menggunakan eager loading
+        $books = Book::with(['collection', 'category'])->paginate(10);
+    
         return Inertia::render('Books/Index', [
             'books' => $books,
         ]);

@@ -25,7 +25,8 @@ class Book extends Model
         'title', 
         'author', 
         'published_year',  
-        'collection_id'
+        'collection_id',
+        'category_id'
     ];
 
     // Relasi One-to-Many dengan model Collection
@@ -34,4 +35,11 @@ class Book extends Model
         // bahwa setiap buku Book berhubungan dengan satu entitas Collection
         return $this->belongsTo(Collection::class);
     }
+
+     // Relasi One-to-Many dengan Category
+     public function category()
+     {
+         return $this->belongsTo(Category::class); // Menghubungkan dengan tabel categories
+     }
+ 
 }
