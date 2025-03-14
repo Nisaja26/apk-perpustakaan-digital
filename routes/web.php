@@ -40,9 +40,6 @@ Route::middleware('auth')->group(function () {
     // Route untuk mengelola buku (books)
     Route::resource('/books', BookController::class);
 
-    // // Route untuk mengelola buku (collection)
-    Route::resource('/collections', CollectionController::class);
-
 
     // Route untuk mengedit profil pengguna
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

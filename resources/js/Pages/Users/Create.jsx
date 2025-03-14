@@ -125,7 +125,7 @@ export default function Create({auth}) {
                             <Input label={'Password Confirmation'} type={'password'} value={data.password_confirmation} onChange={e => setData('password_confirmation', e.target.value)} errors={errors.password_confirmation} placeholder="Input password confirmation..."/>
                         </div>
                         <div className='flex items-center gap-2'>
-                            <Button type={'submit'} />
+                            <Button type={'submit'}  url={route('users.index')}/>
                             <Button type={'cancel'} url={route('users.index')}/>
                         </div>
                     </form>
