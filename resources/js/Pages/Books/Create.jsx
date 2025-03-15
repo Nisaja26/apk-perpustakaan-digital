@@ -157,7 +157,7 @@ export default function Create({ auth }) {
 
                         {/* Tombol untuk submit dan membatalkan */}
                         <div className="flex items-center gap-2">
-                            <Button type={'submit'} />  {/* Tombol untuk mengirimkan form */}
+                            <Button type={'submit'} url={route('books.index')} />  {/* Tombol untuk mengirimkan form */}
                             <Button type={'cancel'} url={route('books.index')} />  {/* Tombol untuk membatalkan dan kembali ke daftar buku */}
                         </div>
                     </form>

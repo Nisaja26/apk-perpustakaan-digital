@@ -13,7 +13,7 @@ class UserController extends Controller implements HasMiddleware
     // Method untuk mendefinisikan middleware yang diterapkan pada setiap action controller
     public static function middleware()
     {
-        return [
+        return [ 
             new Middleware('permission:users index', only: ['index']), // Membatasi akses untuk action index hanya jika memiliki permission 'users index'
             new Middleware('permission:users create', only: ['create', 'store']), // Membatasi akses untuk action create dan store hanya jika memiliki permission 'users create'
             new Middleware('permission:users edit', only: ['edit', 'update']), // Membatasi akses untuk action edit dan update hanya jika memiliki permission 'users edit'
