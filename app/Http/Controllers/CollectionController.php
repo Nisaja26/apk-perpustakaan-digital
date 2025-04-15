@@ -16,7 +16,7 @@ class CollectionController extends Controller implements HasMiddleware
             new Middleware('collection:collections index', only: ['index']),
             new Middleware('collection:collections create', only: ['create', 'store']),
             new Middleware('collection:collections edit', only: ['edit', 'update']),
-            new Middleware('collection:collection delete', only: ['destroy']),
+            new Middleware('collection:collections delete', only: ['destroy']),
         ];
     }
 
@@ -58,7 +58,7 @@ class CollectionController extends Controller implements HasMiddleware
     public function store(Request $request)
     {
         // validate request
-        $request->validate(['name' => 'required|min:3|max:255|unique:permissions']);
+        $request->validate(['name' => 'required|min:3|max:255|unique:collections']);
 
         // create new permission data
         Collection::create(['name' => $request->name]);
@@ -73,7 +73,7 @@ class CollectionController extends Controller implements HasMiddleware
     public function edit(Collection $collection)
     {
         // render view
-        return inertia('Permissions/Edit', ['permission' => $collection]);
+        return inertia('Collections/Edit', ['collection' => $collection]);
     }
 
     /**
@@ -82,7 +82,7 @@ class CollectionController extends Controller implements HasMiddleware
     public function update(Request $request, Collection $collection)
     {
         // validate request
-        $request->validate(['name' => 'required|min:3|max:255|unique:permissions,name,' . $collection->id]);
+        $request->validate(['name' => 'required|min:3|max:255|unique:collections,name,' . $collection->id]);
 
         // update permission data
         $collection->update(['name' => $request->name]);
