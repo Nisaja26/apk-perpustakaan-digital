@@ -5,6 +5,7 @@ use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\CollectionController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -35,6 +36,9 @@ Route::middleware('auth')->group(function () {
 
     // Route untuk mengelola users (pengguna)
     Route::resource('/users', UserController::class);
+
+    //route untuk mengelola collection
+    Route::resource('/collections', CollectionController::class);
 
     // Route untuk mengelola buku (books)
     Route::resource('/books', BookController::class);
