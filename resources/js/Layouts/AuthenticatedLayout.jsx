@@ -254,6 +254,15 @@ export default function AuthenticatedLayout({ header, children }) {
                             </ResponsiveNavLink>
                         }
 
+                         {hasAnyPermission(['collections index']) &&
+                            <ResponsiveNavLink
+                                href={route('collections.index')}
+                                active={route().current('collections*')}>
+
+                                Collection
+                            </ResponsiveNavLink>
+                        } 
+
 
                     </div>
 
