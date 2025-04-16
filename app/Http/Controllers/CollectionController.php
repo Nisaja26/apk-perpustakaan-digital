@@ -29,7 +29,7 @@ class CollectionController extends Controller implements HasMiddleware
     {
         // Mengambil data koleksi beserta relasi 'books' (asumsinya relasi one-to-many di model Collection)
         //  get collections
-        $collections = Collection::with('books')
+        $collections = Collection::select('id', 'name')
             // Jika terdapat parameter 'search', filter berdasarkan nama koleksi yang mengandung kata kunci tersebut
             ->when($request->search, fn($search) => $search->where('name', 'like', '%' . $request->search . '%'))
             // Mengurutkan hasil berdasarkan waktu terbaru (biasanya dari kolom created_at)

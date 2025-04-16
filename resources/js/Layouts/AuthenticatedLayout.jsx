@@ -95,10 +95,10 @@ export default function AuthenticatedLayout({ header, children }) {
                                 }
 
 
-                                {hasAnyPermission(['books index']) &&
+                                {hasAnyPermission(['collections index']) &&
                                     <NavLink
-                                        href={route('books.index')}
-                                        active={route().current('books*')}
+                                        href={route('collections.index')}
+                                        active={route().current('collections*')}
                                         className="flex items-center space-x-2 px-4 py-2 rounded-md text-gray-700 hover:bg-purple-400 hover:text-white transition-all duration-400"
                                     >
                                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
@@ -106,7 +106,7 @@ export default function AuthenticatedLayout({ header, children }) {
                                             <path strokeLinecap="round" strokeLinejoin="round" d="M14 3v2M10 3v2M12 13v2M8 13v2M16 13v2" />
                                         </svg>
 
-                                        <span>Books</span>
+                                        <span>collections</span>
                                     </NavLink>
                                 }
 
@@ -245,14 +245,6 @@ export default function AuthenticatedLayout({ header, children }) {
                             </ResponsiveNavLink>
                         }
 
-                        {hasAnyPermission(['books index']) &&
-                            <ResponsiveNavLink
-                                href={route('books.index')}
-                                active={route().current('books*')}>
-
-                                Books
-                            </ResponsiveNavLink>
-                        }
 
                          {hasAnyPermission(['collections index']) &&
                             <ResponsiveNavLink

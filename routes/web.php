@@ -4,7 +4,6 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\BookController;
 use App\Http\Controllers\CollectionController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -40,8 +39,7 @@ Route::middleware('auth')->group(function () {
     //route untuk mengelola collection
     Route::resource('/collections', CollectionController::class);
 
-    // Route untuk mengelola buku (books)
-    Route::resource('/books', BookController::class);
+
 
 
     // Route untuk mengedit profil pengguna
