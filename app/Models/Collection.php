@@ -28,9 +28,5 @@ class Collection extends Model
     ];
 
     // Relasi One-to-Many dengan model Book
-    public function books()
-    {
-        // Collection memiliki banyak buku
-        return $this->hasMany(Book::class);
-    }
+    
 }

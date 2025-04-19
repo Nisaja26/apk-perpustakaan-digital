@@ -13,10 +13,10 @@ class CollectionController extends Controller implements HasMiddleware
     public static function middleware()
     {
         return [
-            new Middleware('collection:collections index', only: ['index']),
-            new Middleware('collection:collections create', only: ['create', 'store']),
-            new Middleware('collection:collections edit', only: ['edit', 'update']),
-            new Middleware('collection:collections delete', only: ['destroy']),
+            new Middleware('permission:collections index', only: ['index']),
+            new Middleware('permission:collections create', only: ['create', 'store']),
+            new Middleware('permission:collections edit', only: ['edit', 'update']),
+            new Middleware('permission:collections delete', only: ['destroy']),
         ];
     }
 

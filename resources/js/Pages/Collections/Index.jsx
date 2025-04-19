@@ -7,47 +7,50 @@ import Pagination from '@/Components/Pagination';
 import { Head, usePage } from '@inertiajs/react';
 import Search from '@/Components/Search';
 import hasAnyPermission from '@/Utils/Permissions';
-export default function Index({auth}) {
 
-    // destruct permissions props
-    const { permissions,filters } = usePage().props;
+export default function Index({ auth }) {
+
+    // destruct props
+    const { books, filters } = usePage().props;
 
     return (
         <AuthenticatedLayout
             user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Permissions</h2>}
+            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Book Collection</h2>}
         >
-            <Head title={'Permissions'}/>
+            <Head title={'Book Collection'} />
             <Container>
                 <div className='mb-4 flex items-center justify-between gap-4'>
-                    {hasAnyPermission(['permissions create']) &&
-                        <Button type={'add'} url={route('permissions.create')}/>
+                    {hasAnyPermission(['books create']) &&
+                        <Button type={'add'} url={route('books.create')} />
                     }
-                    <div className='w-full md:w-4/6'> 
-                        <Search url={route('permissions.index')} placeholder={'Search permissions data by name...'} filter={filters}/>
+                    <div className='w-full md:w-4/6'>
+                        <Search url={route('books.index')} placeholder={'Search books by title or author...'} filter={filters} />
                     </div>
                 </div>
-                <Table.Card title={'Permissions'}>
+                <Table.Card title={'Books'}>
                     <Table>
                         <Table.Thead>
                             <tr>
                                 <Table.Th>#</Table.Th>
-                                <Table.Th>Permissions Name</Table.Th>
+                                <Table.Th>Title</Table.Th>
+                                <Table.Th>Author</Table.Th>
                                 <Table.Th>Action</Table.Th>
                             </tr>
                         </Table.Thead>
                         <Table.Tbody>
-                            {permissions.data.map((permission, i) => (
-                                <tr key={i}>
-                                    <Table.Td>{++i + (permissions.current_page-1) * permissions.per_page}</Table.Td>
-                                    <Table.Td>{permission.name}</Table.Td>
+                            {books.data.map((book, i) => (
+                                <tr key={book.id}>
+                                    <Table.Td>{++i + (books.current_page - 1) * books.per_page}</Table.Td>
+                                    <Table.Td>{book.title}</Table.Td>
+                                    <Table.Td>{book.author}</Table.Td>
                                     <Table.Td>
                                         <div className='flex items-center gap-2'>
-                                            {hasAnyPermission(['permissions edit']) &&
-                                                <Button type={'edit'} url={route('permissions.edit', permission.id)}/>
+                                            {hasAnyPermission(['books edit']) &&
+                                                <Button type={'edit'} url={route('books.edit', book.id)} />
                                             }
-                                            {hasAnyPermission(['permissions delete']) &&
-                                                <Button type={'delete'} url={route('permissions.destroy', permission.id)}/>
+                                            {hasAnyPermission(['books delete']) &&
+                                                <Button type={'delete'} url={route('books.destroy', book.id)} />
                                             }
                                         </div>
                                     </Table.Td>
@@ -57,7 +60,7 @@ export default function Index({auth}) {
                     </Table>
                 </Table.Card>
                 <div className='flex items-center justify-center'>
-                    {permissions.last_page !== 1 && (<Pagination links={permissions.links}/>)}
+                    {books.last_page !== 1 && (<Pagination links={books.links} />)}
                 </div>
             </Container>
         </AuthenticatedLayout>
