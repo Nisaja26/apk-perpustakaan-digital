@@ -40,8 +40,6 @@ Route::middleware('auth')->group(function () {
     Route::resource('/collections', CollectionController::class);
 
 
-
-
     // Route untuk mengedit profil pengguna
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
 

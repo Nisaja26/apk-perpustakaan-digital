@@ -251,7 +251,7 @@ export default function AuthenticatedLayout({ header, children }) {
                                 href={route('collections.index')}
                                 active={route().current('collections*')}>
 
-                                Collection
+                                Collections
                             </ResponsiveNavLink>
                         } 
 
