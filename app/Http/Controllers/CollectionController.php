@@ -56,58 +56,62 @@ class CollectionController implements HasMiddleware
     /**
      * Show the form for creating a new resource.
      */
+    
+    //  menuju halaman create koleksi
     public function create()
     {
         // render view
-        return inertia('Permissions/Create');
+        return inertia('Collections/Create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
+
+    //  memasukan data yang telah dikirim 
     public function store(Request $request)
     {
         // validate request
-        $request->validate(['name' => 'required|min:3|max:255|unique:permissions']);
+        $request->validate(['name' => 'required|min:3|max:255|unique:collections']);
 
-        // create new permission data
-        Permission::create(['name' => $request->name]);
+        // create new data
+        Collection::create(['name' => $request->name]);
 
-        // render view
-        return to_route('permissions.index');
+        // kembali ke halaman
+        return to_route('collections.index');
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Permission $permission)
+    public function edit(Collection $collection) 
     {
         // render view
-        return inertia('Collections/Edit', ['permission' => $permission]);
+        return inertia('Collections/Edit', ['collection' => $collection]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Permission $permission)
+    public function update(Request $request, Collection $collection)
     {
         // validate request
-        $request->validate(['name' => 'required|min:3|max:255|unique:permissions,name,'.$permission->id]);
+        $request->validate(['name' => 'required|min:3|max:255|unique:collections,name,'.$collection->id]);
 
         // update permission data
-        $permission->update(['name' => $request->name]);
+        $collection->update(['name' => $request->name]);
 
         // render view
-        return to_route('permissions.index');
+        return to_route('collections.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Permission $permission)
+    public function destroy(Collection $collection)
     {
         // delete permissions data
-        $permission->delete();
+        $collection->delete();
 
         // render view
         return back();
