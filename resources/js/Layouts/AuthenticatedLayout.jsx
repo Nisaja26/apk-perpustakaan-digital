@@ -51,6 +51,9 @@ export default function AuthenticatedLayout({ header, children }) {
                                     <span>Home</span>
                                 </NavLink>
 
+
+
+                                {/* SISTEM NAVIGASI */}
                                 {/* Permissions Link */}
                                 {hasAnyPermission(["permissions index"]) && (
                                     <NavLink
@@ -94,21 +97,24 @@ export default function AuthenticatedLayout({ header, children }) {
                                     </NavLink>
                                 }
 
-
-                                {hasAnyPermission(['collections index']) &&
+                                {hasAnyPermission(["collections index"]) && (
                                     <NavLink
-                                        href={route('collections.index')}
-                                        active={route().current('collections*')}
+                                        href={route("collections.index")}
+                                        active={route().current("collections*")}
                                         className="flex items-center space-x-2 px-4 py-2 rounded-md text-gray-700 hover:bg-purple-400 hover:text-white transition-all duration-400"
                                     >
-                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
-                                            <path strokeLinecap="round" strokeLinejoin="round" d="M4 5h16v14H4z" />
-                                            <path strokeLinecap="round" strokeLinejoin="round" d="M14 3v2M10 3v2M12 13v2M8 13v2M16 13v2" />
+                                        {/* Ikon buku */}
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 6V4c0-.552-.447-1-1-1H5c-.553 0-1 .448-1 1v16c0 .552.447 1 1 1h6c.553 0 1-.448 1-1v-2m0-12h7c.553 0 1 .448 1 1v14c0 .552-.447 1-1 1h-7m0-16v16" />
                                         </svg>
-
-                                        <span>collections</span>
+                                        <span>Collections</span>
                                     </NavLink>
-                                }
+                                )}
+
+
+
+
+
 
                             </div>
 
@@ -211,12 +217,16 @@ export default function AuthenticatedLayout({ header, children }) {
                         " sm:hidden"
                     }
                 >
+
+                    {/* TAMPILAN NAVIGASI */}
                     <div className="space-y-1 pb-3 pt-2">
                         <ResponsiveNavLink
                             href={route("dashboard")}
                             active={route().current("dashboard")}
                         >
                             Dashboard
+
+
                         </ResponsiveNavLink>
                         {hasAnyPermission(["permissions index"]) && (
                             <ResponsiveNavLink
@@ -236,6 +246,7 @@ export default function AuthenticatedLayout({ header, children }) {
                             </ResponsiveNavLink>
                         )}
 
+                        {/* berbeda pakai kutip 1 */}
                         {hasAnyPermission(['users index']) &&
                             <ResponsiveNavLink
                                 href={route('users.index')}
@@ -246,14 +257,19 @@ export default function AuthenticatedLayout({ header, children }) {
                         }
 
 
-                         {hasAnyPermission(['collections index']) &&
-                            <ResponsiveNavLink
-                                href={route('collections.index')}
-                                active={route().current('collections*')}>
 
+                        {hasAnyPermission(["collections index"]) && (
+                            <ResponsiveNavLink
+                                href={route("collections.index")}
+                                active={route().current("collections*")}
+                            >
                                 Collections
                             </ResponsiveNavLink>
-                        } 
+                        )}
+
+
+
+
 
 
                     </div>
@@ -282,23 +298,25 @@ export default function AuthenticatedLayout({ header, children }) {
                         </div>
                     </div>
                 </div>
-            </nav>
+            </nav >
             {/* Pada tampilan mobile, menu navigasi tersembunyi hingga pengguna mengklik tombol menu (hamburger icon) untuk menampilkan dropdown navigasi. Di sini, showingNavigationDropdown
             dikendalikan untuk menyembunyikan atau menampilkan daftar navigasi. Dropdown menu navigasi hanya muncul ketika showingNavigationDropdown bernilai true */}
 
             {/* Bagian header memungkinkan kita untuk menampilkan elemen header yang dapat disesuaikan dengan props header yang diberikan. 
             Konten utama (<main>{children}</main>) menampilkan konten halaman yang diberikan oleh komponen induk, yang dapat berupa apa saja sesuai kebutuhan halaman yang sedang ditampilkan.
              */}
-            {header && (
-                <header className="bg-white shadow">
-                    <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-                        {header}
-                    </div>
-                </header>
-            )}
+            {
+                header && (
+                    <header className="bg-white shadow">
+                        <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+                            {header}
+                        </div>
+                    </header>
+                )
+            }
 
             <main>{children}</main>
-        </div>
+        </div >
     );
 }
 // Layout ini dirancang untuk aplikasi web dengan navigasi responsif yang hanya menunjukkan opsi menu yang relevan berdasarkan izin pengguna.

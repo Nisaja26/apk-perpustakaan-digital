@@ -1,17 +1,29 @@
 <?php
 
 namespace App\Http\Controllers;
+// untuk mengorganisasi file PHP dan menghindari konflik antara class dengan nama yang sama
+
+
+// use Illuminate\Database\Eloquent\Collection;
+
+use App\Models\Collection;
 
 use Illuminate\Http\Request;
+// Mengimpor class Request dari Laravel
 use Illuminate\Routing\Controllers\HasMiddleware;
-use Illuminate\Routing\Controllers\Middleware;
-use App\Models\Collection; //mewakili tabel collections
+// menggunakan metode middleware()
 
-class CollectionController extends Controller implements HasMiddleware
+use Illuminate\Routing\Controllers\Middleware;
+// untuk mendefinisikan middleware
+
+use Spatie\Permission\Models\Permission;
+// ntuk mengelola hak akses
+
+class CollectionController implements HasMiddleware
 {
-    // Menetapkan middleware berbasis permission untuk setiap aksi
     public static function middleware()
     {
+        // mengatur hak akses 
         return [
             new Middleware('permission:collections index', only: ['index']),
             new Middleware('permission:collections create', only: ['create', 'store']),
@@ -23,24 +35,22 @@ class CollectionController extends Controller implements HasMiddleware
     /**
      * Display a listing of the resource.
      */
-
-    // untuk menampilkan daftar koleksi
-    public function index(Request $request)
+    
+    //  untuk menampilkan daftar data
+     public function index(Request $request)
     {
-        // Mengambil data koleksi beserta relasi 'books' (asumsinya relasi one-to-many di model Collection)
-        //  get collections
-        $collections = Collection::select('id', 'name')
-            // Jika terdapat parameter 'search', filter berdasarkan nama koleksi yang mengandung kata kunci tersebut
-            ->when($request->search, fn($search) => $search->where('name', 'like', '%' . $request->search . '%'))
-            // Mengurutkan hasil berdasarkan waktu terbaru (biasanya dari kolom created_at)
+        //  get permissions
+        $collections = Collection ::select('id', 'name')
+        // mengambil data dari tabel collection
+            ->when($request->search,fn($search) => $search->where('name', 'like', '%'.$request->search.'%'))
+            // logika ketika ingin men seacrhing data
             ->latest()
-            // Batasi hasil ke 6 item per halaman dan tetap pertahankan query string saat berpindah halaman
+            // mengurutkan data dengan urutan terbaru paling atas
             ->paginate(6)->withQueryString();
+            // menampilkan 6 data per halaman
 
         // render view
-        // Render tampilan Collections/Index melalui Inertia.js,
-        // Kirim data koleksi dan filter pencarian (jika ada) ke frontend
-        return inertia('Collections/Index', ['collections' => $collections, 'filters' => $request->only(['search'])]);
+        return inertia('Collections/Index', ['collections' => $collections,'filters' => $request->only(['search'])]);
     }
 
     /**
@@ -49,7 +59,7 @@ class CollectionController extends Controller implements HasMiddleware
     public function create()
     {
         // render view
-        return inertia('Collections/Create');
+        return inertia('Permissions/Create');
     }
 
     /**
@@ -58,46 +68,46 @@ class CollectionController extends Controller implements HasMiddleware
     public function store(Request $request)
     {
         // validate request
-        $request->validate(['name' => 'required|min:3|max:255|unique:collections']);
+        $request->validate(['name' => 'required|min:3|max:255|unique:permissions']);
 
         // create new permission data
-        Collection::create(['name' => $request->name]);
+        Permission::create(['name' => $request->name]);
 
         // render view
-        return to_route('collections.index');
+        return to_route('permissions.index');
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Collection $collection)
+    public function edit(Permission $permission)
     {
         // render view
-        return inertia('Collections/Edit', ['collection' => $collection]);
+        return inertia('Collections/Edit', ['permission' => $permission]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Collection $collection)
+    public function update(Request $request, Permission $permission)
     {
         // validate request
-        $request->validate(['name' => 'required|min:3|max:255|unique:collections,name,' . $collection->id]);
+        $request->validate(['name' => 'required|min:3|max:255|unique:permissions,name,'.$permission->id]);
 
         // update permission data
-        $collection->update(['name' => $request->name]);
+        $permission->update(['name' => $request->name]);
 
         // render view
-        return to_route('collections.index');
+        return to_route('permissions.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Collection $collection)
+    public function destroy(Permission $permission)
     {
         // delete permissions data
-        $collection->delete();
+        $permission->delete();
 
         // render view
         return back();

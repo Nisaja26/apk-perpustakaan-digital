@@ -16,7 +16,8 @@ class DatabaseSeeder extends Seeder
         $this->call(RolesTableSeeder::class);
         $this->call(PermissionsTableSeeder::class);
         $this->call(UserTableSeeder::class);
-        $this->call(BookTableSeeder::class);
+        $this->call(CollectionTableSeeder::class);
+        // $this->call(BookTableSeeder::class);
     }
 }
 // kita memanggil class rolestableseeder, PermissionTableUser, UserTableSeeder dalam method run

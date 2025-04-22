@@ -27,6 +27,7 @@ Route::get('/dashboard', function () {
 
 // Grup route yang memerlukan autentikasi pengguna
 Route::middleware('auth')->group(function () {
+
     // Route untuk mengelola permissions (izin)
     Route::resource('/permissions', PermissionController::class);
 
@@ -36,8 +37,11 @@ Route::middleware('auth')->group(function () {
     // Route untuk mengelola users (pengguna)
     Route::resource('/users', UserController::class);
 
-    //route untuk mengelola collection
+    // route untuk koleksi buku
+    // Route untuk mengelola permissions (izin)
     Route::resource('/collections', CollectionController::class);
+
+    
 
 
     // Route untuk mengedit profil pengguna

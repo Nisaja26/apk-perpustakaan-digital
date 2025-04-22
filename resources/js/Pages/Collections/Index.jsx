@@ -10,48 +10,44 @@ import hasAnyPermission from '@/Utils/Permissions';
 
 export default function Index({ auth }) {
 
-    // destruct props
-    const { books, filters } = usePage().props;
+    // Destruct collections dan filters dari props, dengan fallback default
+    const { collections = { data: [], current_page: 1, per_page: 10, last_page: 1, links: [] }, filters } = usePage().props;
 
     return (
         <AuthenticatedLayout
             user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Book Collection</h2>}
+            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Collections</h2>}
         >
-            <Head title={'Book Collection'} />
+            <Head title={'Collections'} />
             <Container>
                 <div className='mb-4 flex items-center justify-between gap-4'>
-                    {hasAnyPermission(['books create']) &&
-                        <Button type={'add'} url={route('books.create')} />
+                    {hasAnyPermission(['collections create']) &&
+                        <Button type={'add'} url={route('collections.create')} />
                     }
                     <div className='w-full md:w-4/6'>
-                        <Search url={route('books.index')} placeholder={'Search books by title or author...'} filter={filters} />
+                        <Search url={route('collections.index')} placeholder={'Search collections by name...'} filter={filters} />
                     </div>
                 </div>
-                <Table.Card title={'Books'}>
+                <Table.Card title={'Collections'}>
                     <Table>
                         <Table.Thead>
                             <tr>
                                 <Table.Th>#</Table.Th>
-                                <Table.Th>Title</Table.Th>
-                                <Table.Th>Author</Table.Th>
+                                <Table.Th>Collection Name</Table.Th>
                                 <Table.Th>Action</Table.Th>
                             </tr>
                         </Table.Thead>
                         <Table.Tbody>
-                            {books.data.map((book, i) => (
-                                <tr key={book.id}>
-                                    <Table.Td>{++i + (books.current_page - 1) * books.per_page}</Table.Td>
-                                    <Table.Td>{book.title}</Table.Td>
-                                    <Table.Td>{book.author}</Table.Td>
+                            {(collections.data || []).map((collection, i) => (
+                                <tr key={collection.id}>
+                                    <Table.Td>{++i + (collections.current_page - 1) * collections.per_page}</Table.Td>
+                                    <Table.Td>{collection.name}</Table.Td>
                                     <Table.Td>
                                         <div className='flex items-center gap-2'>
-                                            {hasAnyPermission(['books edit']) &&
-                                                <Button type={'edit'} url={route('books.edit', book.id)} />
-                                            }
-                                            {hasAnyPermission(['books delete']) &&
-                                                <Button type={'delete'} url={route('books.destroy', book.id)} />
-                                            }
+                                            {hasAnyPermission(['collections edit']) &&
+                                                <Button type={'edit'} url={route('collections.edit', collection.id)} />}
+                                            {hasAnyPermission(['collections delete']) &&
+                                                <Button type={'delete'} url={route('collections.destroy', collection.id)} />}
                                         </div>
                                     </Table.Td>
                                 </tr>
@@ -60,9 +56,9 @@ export default function Index({ auth }) {
                     </Table>
                 </Table.Card>
                 <div className='flex items-center justify-center'>
-                    {books.last_page !== 1 && (<Pagination links={books.links} />)}
+                    {collections.last_page !== 1 && (<Pagination links={collections.links} />)}
                 </div>
             </Container>
         </AuthenticatedLayout>
-    )
+    );
 }
