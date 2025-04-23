@@ -16,8 +16,6 @@ use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 // untuk mendefinisikan middleware
 
-use Spatie\Permission\Models\Permission;
-// ntuk mengelola hak akses
 
 class CollectionController implements HasMiddleware
 {
