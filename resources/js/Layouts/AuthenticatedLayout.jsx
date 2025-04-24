@@ -111,6 +111,19 @@ export default function AuthenticatedLayout({ header, children }) {
                                     </NavLink>
                                 )}
 
+                                <NavLink
+                                    href={route("categories.index")}
+                                    active={route().current("categories*")}
+                                    className="flex items-center space-x-2 px-4 py-2 rounded-md text-gray-700 hover:bg-purple-400 hover:text-white transition-all duration-400"
+                                >
+                                    {/* Ikon Buku Terbuka */}
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 6c-1.5-1-3-1-4.5-1S4.5 5 3 6v12c1.5-1 3-1 4.5-1S10.5 17 12 18m0-12c1.5-1 3-1 4.5-1s3 .5 4.5 1v12c-1.5-1-3-1-4.5-1s-3 .5-4.5 1" />
+                                    </svg>
+                                    <span>Categories</span>
+                                </NavLink>
+
+
 
 
 
@@ -267,8 +280,14 @@ export default function AuthenticatedLayout({ header, children }) {
                             </ResponsiveNavLink>
                         )}
 
-
-
+                        {hasAnyPermission(["categories index"]) && (
+                            <ResponsiveNavLink
+                                href={route("categories.index")}
+                                active={route().current("categories*")}
+                            >
+                                Categories
+                            </ResponsiveNavLink>
+                        )}
 
 
 
