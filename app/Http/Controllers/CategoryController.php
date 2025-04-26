@@ -6,7 +6,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
-// use Spatie\Permission\Models\Permission;
+
 
 class CategoryController extends Controller implements HasMiddleware
 {

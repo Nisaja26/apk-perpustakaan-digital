@@ -15,9 +15,10 @@ export default function Index({ auth }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Book Categories</h2>}
+            // judul halaman
+            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Categories</h2>}
         >
-            <Head title={'Book Categories'} />
+            <Head title={'Categories'} />
 
             <Container>
                 <div className='mb-4 flex items-center justify-between gap-4'>

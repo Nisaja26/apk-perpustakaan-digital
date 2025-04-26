@@ -6,6 +6,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\BookController;
 
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -47,6 +48,8 @@ Route::middleware('auth')->group(function () {
     // Route untuk mengelola permissions (izin)
     Route::resource('/categories', CategoryController::class);
 
+    // route mengelola book
+    Route::resource('/books', BookController::class);
     
 
 
