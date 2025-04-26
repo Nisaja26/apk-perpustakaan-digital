@@ -14,15 +14,18 @@ return new class extends Migration {
             $table->id();
             $table->string('title'); // Menyimpan judul buku
             $table->string('author'); // Menyimpan nama penulis
+            $table->unsignedBigInteger('collection_id');
+            $table->unsignedBigInteger('category_id');
+            $table->text('book');
             $table->year('publication_year'); // Menyimpan tahun terbit
 
             // Relasi ke tabel collections
-            $table->unsignedBigInteger('collection_id');
+           
             $table->foreign('collection_id')->references('id')->on('collections')->onDelete('cascade');
 
 
             // Relasi ke tabel categories
-            $table->unsignedBigInteger('category_id');
+            
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
 
             $table->timestamps();

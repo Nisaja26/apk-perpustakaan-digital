@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 class Book extends Model
+
 {
     // Tentukan relasi dengan model Category
     public function category()
