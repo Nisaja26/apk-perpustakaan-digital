@@ -2,20 +2,19 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Collection;
 
 class Book extends Model
+
 {
-    use HasFactory;
-    
-    /**
-     * post
-     *
-     * @return void
-     */
-    public function collections()
+    // Tentukan relasi dengan model Category
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    // Tentukan relasi dengan model Collection
+    public function collection()
     {
         return $this->belongsTo(Collection::class);
     }
