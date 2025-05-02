@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use App\Models\Collection;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
@@ -47,24 +49,31 @@ class BookController extends Controller implements HasMiddleware
      */
     public function create()
     {
-        // render view
-        return inertia('Books/Create');
+        return inertia('Books/Create', [
+            'collections' => Collection::select('id', 'name')->get(),
+            'categories' => Category::select('id', 'name')->get(),
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        // validate request
-        $request->validate(['name' => 'required|min:3|max:255|unique:permissions']);
+{
+    $request->validate([
+        'title' => 'required|string|max:255',
+        'author' => 'required|string|max:255',
+        // 'book' => 'required|string',
+        'publication_year' => 'required|digits:4|integer|min:1500|max:' . date('Y'),
+        'category_id' => 'required|exists:categories,id',
+        'collection_id' => 'required|exists:collections,id',
+    ]);
+    
 
-        // create new permission data
-        Book::create(['name' => $request->name]);
+    $book = Book::create($request->all());
+    return redirect()->route('books.index')->with('success', 'Buku berhasil ditambahkan');
+}
 
-        // render view
-        return to_route('books.index');
-    }
 
     /**
      * Show the form for editing the specified resource.
