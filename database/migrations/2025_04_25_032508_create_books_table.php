@@ -16,7 +16,7 @@ return new class extends Migration {
             $table->string('author'); // Menyimpan nama penulis
             $table->unsignedBigInteger('collection_id');
             $table->unsignedBigInteger('category_id');
-            $table->text('book');
+            $table->string('book'); // Menyimpan URL atau path file buku (nanti di rubah)
             $table->year('publication_year'); // Menyimpan tahun terbit
 
             // Relasi ke tabel collections

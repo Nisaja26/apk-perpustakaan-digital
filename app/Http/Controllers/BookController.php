@@ -33,11 +33,11 @@ class BookController extends Controller implements HasMiddleware
             ->latest()
             ->paginate(6)
             ->withQueryString();
-    
+
         // Lazy load untuk category dan collection setelah query utama
         // lazy load ini akan memanggil data jika diperlukan saja
         $books->load(['category', 'collection']);
-    
+
         // Render view
         return inertia('Books/Index', [
             'books' => $books,
@@ -59,20 +59,20 @@ class BookController extends Controller implements HasMiddleware
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-{
-    $request->validate([
-        'title' => 'required|string|max:255',
-        'author' => 'required|string|max:255',
-        // 'book' => 'required|string',
-        'publication_year' => 'required|digits:4|integer|min:1500|max:' . date('Y'),
-        'category_id' => 'required|exists:categories,id',
-        'collection_id' => 'required|exists:collections,id',
-    ]);
-    
+    {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'author' => 'required|string|max:255',
+            // 'book' => 'required|string',
+            'publication_year' => 'required|digits:4|integer|min:1500|max:' . date('Y'),
+            'category_id' => 'required|exists:categories,id',
+            'collection_id' => 'required|exists:collections,id',
+        ]);
 
-    $book = Book::create($request->all());
-    return redirect()->route('books.index')->with('success', 'Buku berhasil ditambahkan');
-}
+
+        $book = Book::create($request->all());
+        return redirect()->route('books.index')->with('success', 'Buku berhasil ditambahkan');
+    }
 
 
     /**
@@ -80,9 +80,13 @@ class BookController extends Controller implements HasMiddleware
      */
     public function edit(Book $book)
     {
-        // render view
-        return inertia('Permissions/Edit', ['permission' => $book]);
+        return inertia('Books/Edit', [
+            'book' => $book,
+            'collections' => Collection::select('id', 'name')->get(),
+            'categories' => Category::select('id', 'name')->get(),
+        ]);
     }
+
 
     /**
      * Update the specified resource in storage.
@@ -90,7 +94,7 @@ class BookController extends Controller implements HasMiddleware
     public function update(Request $request, Book $book)
     {
         // validate request
-        $request->validate(['name' => 'required|min:3|max:255|unique:permissions,name,'.$book->id]);
+        $request->validate(['name' => 'required|min:3|max:255|unique:books,name,' . $book->id]);
 
         // update permission data
         $book->update(['name' => $request->name]);

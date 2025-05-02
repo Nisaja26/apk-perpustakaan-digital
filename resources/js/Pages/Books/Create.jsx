@@ -13,7 +13,7 @@ export default function Create({ auth }) {
     const { data, setData, post, errors } = useForm({
         title: '',
         author: '',
-        book: '',
+        // book: '',
         publication_year: '',
         category_id: '',
         collection_id: '',
@@ -26,7 +26,7 @@ export default function Create({ auth }) {
         post(route('books.store'), {
             title: data.title,
             author: data.author,
-            book: data.book,
+            // book: data.book,
             publication_year: data.publication_year,
             collection_id: data.collection_id, // Gunakan collection_id yang benar
             category_id: data.category_id, // Gunakan category_id yang benar
@@ -140,7 +140,7 @@ export default function Create({ auth }) {
                         </div>
 
                         {/* Input untuk deskripsi buku */}
-                        <div className="mb-4">
+                        {/* <div className="mb-4">
                             <Input
                                 label={'Deskripsi Buku'}
                                 type={'text'}
@@ -150,7 +150,7 @@ export default function Create({ auth }) {
                                 placeholder="Masukkan deskripsi buku..."
                             />
                             {errors.book && <span className="text-red-500 text-sm">{errors.book}</span>}
-                        </div>
+                        </div> */}
 
                         {/* Tombol untuk submit dan membatalkan */}
                         <div className='flex items-center gap-2'>
