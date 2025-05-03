@@ -63,7 +63,6 @@ class BookController extends Controller implements HasMiddleware
         $request->validate([
             'title' => 'required|string|max:255',
             'author' => 'required|string|max:255',
-            // 'book' => 'required|string',
             'publication_year' => 'required|digits:4|integer|min:1500|max:' . date('Y'),
             'category_id' => 'required|exists:categories,id',
             'collection_id' => 'required|exists:collections,id',
@@ -71,7 +70,7 @@ class BookController extends Controller implements HasMiddleware
 
 
         $book = Book::create($request->all());
-        return redirect()->route('books.index')->with('success', 'Buku berhasil ditambahkan');
+        return redirect()->route('books.index');
     }
 
 
@@ -81,11 +80,12 @@ class BookController extends Controller implements HasMiddleware
     public function edit(Book $book)
     {
         return inertia('Books/Edit', [
-            'book' => $book,
+            'book' => $book, // ini penting!
             'collections' => Collection::select('id', 'name')->get(),
             'categories' => Category::select('id', 'name')->get(),
         ]);
     }
+
 
 
     /**
@@ -93,14 +93,17 @@ class BookController extends Controller implements HasMiddleware
      */
     public function update(Request $request, Book $book)
     {
-        // validate request
-        $request->validate(['name' => 'required|min:3|max:255|unique:books,name,' . $book->id]);
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'author' => 'required|string|max:255',
+            'publication_year' => 'required|digits:4|integer|min:1500|max:' . date('Y'),
+            'category_id' => 'required|exists:categories,id',
+            'collection_id' => 'required|exists:collections,id',
+        ]);
 
-        // update permission data
-        $book->update(['name' => $request->name]);
+        $book->update($request->all());
 
-        // render view
-        return to_route('books.index');
+        return redirect()->route('books.index');
     }
 
     /**

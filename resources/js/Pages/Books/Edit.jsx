@@ -1,7 +1,7 @@
 import React from 'react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import Container from '@/Components/Container';
-import { Head, useForm, usePage } from '@inertiajs/react';
+import { Head, useForm } from '@inertiajs/react';
 import Input from '@/Components/Input';
 import Button from '@/Components/Button';
 import Card from '@/Components/Card';
@@ -14,18 +14,16 @@ export default function Edit({ auth, book, collections, categories }) {
         publication_year: book.publication_year || '',
         category_id: book.category_id || '',
         collection_id: book.collection_id || '',
-        book: null, // opsional jika user ingin update file
     });
 
     const handleUpdateData = (e) => {
         e.preventDefault();
 
         put(route('books.update', book.id), {
-            forceFormData: true,
             onSuccess: () => {
                 Swal.fire({
                     title: 'Berhasil!',
-                    text: 'Buku berhasil diperbarui!',
+                    text: 'Data Buku berhasil diperbarui!',
                     icon: 'success',
                     showConfirmButton: false,
                     timer: 1500
@@ -84,7 +82,7 @@ export default function Edit({ auth, book, collections, categories }) {
                         <div className='mb-4'>
                             <label className="text-sm text-gray-700">Koleksi</label>
                             <select
-                                value={data.collection_id}
+                                value={data.collection_id || ''}
                                 onChange={e => setData('collection_id', e.target.value)}
                                 className="w-full border-gray-300 rounded-md shadow-sm"
                             >
@@ -101,7 +99,7 @@ export default function Edit({ auth, book, collections, categories }) {
                         <div className='mb-4'>
                             <label className="text-sm text-gray-700">Kategori</label>
                             <select
-                                value={data.category_id}
+                                value={data.category_id || ''}
                                 onChange={e => setData('category_id', e.target.value)}
                                 className="w-full border-gray-300 rounded-md shadow-sm"
                             >

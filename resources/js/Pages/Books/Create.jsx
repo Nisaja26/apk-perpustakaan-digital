@@ -13,7 +13,6 @@ export default function Create({ auth }) {
     const { data, setData, post, errors } = useForm({
         title: '',
         author: '',
-        // book: '',
         publication_year: '',
         category_id: '',
         collection_id: '',
@@ -22,15 +21,7 @@ export default function Create({ auth }) {
     const handleStoreData = (e) => {
         e.preventDefault();
         console.log(data);
-
         post(route('books.store'), {
-            title: data.title,
-            author: data.author,
-            // book: data.book,
-            publication_year: data.publication_year,
-            collection_id: data.collection_id, // Gunakan collection_id yang benar
-            category_id: data.category_id, // Gunakan category_id yang benar
-        }, {
             onSuccess: () => {
                 Swal.fire({
                     title: 'Berhasil!',
@@ -47,8 +38,10 @@ export default function Create({ auth }) {
                     icon: 'error',
                     showConfirmButton: true,
                 });
-            }
+            },
         });
+        
+        
     };
 
     return (
@@ -138,19 +131,6 @@ export default function Create({ auth }) {
                             </select>
                             {errors.category_id && <span className="text-red-500 text-sm">{errors.category_id}</span>}
                         </div>
-
-                        {/* Input untuk deskripsi buku */}
-                        {/* <div className="mb-4">
-                            <Input
-                                label={'Deskripsi Buku'}
-                                type={'text'}
-                                value={data.book ?? ''}
-                                onChange={e => setData('book', e.target.value)}
-                                errors={errors.book}
-                                placeholder="Masukkan deskripsi buku..."
-                            />
-                            {errors.book && <span className="text-red-500 text-sm">{errors.book}</span>}
-                        </div> */}
 
                         {/* Tombol untuk submit dan membatalkan */}
                         <div className='flex items-center gap-2'>

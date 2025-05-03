@@ -19,13 +19,12 @@ return new class extends Migration {
             $table->string('book'); // Menyimpan URL atau path file buku (nanti di rubah)
             $table->year('publication_year'); // Menyimpan tahun terbit
 
+
             // Relasi ke tabel collections
-           
             $table->foreign('collection_id')->references('id')->on('collections')->onDelete('cascade');
 
 
             // Relasi ke tabel categories
-            
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
 
             $table->timestamps();
