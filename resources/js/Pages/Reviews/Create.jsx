@@ -11,11 +11,12 @@ import Swal from 'sweetalert2';
 export default function Create({ auth, books }) {
     // define state with helper inertia
     const { data, setData, post, errors } = useForm({
-        user_id: auth.user.id, // ambil dari auth
+        user_id: auth.user.id,
         book_id: '',
-        review: '',
+        comment: '', // ubah dari review ke comment
         rating: ''
     });
+
 
     const handleStoreData = (e) => {
         e.preventDefault();
@@ -72,18 +73,16 @@ export default function Create({ auth, books }) {
                             )}
                         </div>
 
-                        {/* Input untuk komentar review */}
                         <textarea
                             className="w-full border rounded px-3 py-2"
-                            value={data.review}
-                            onChange={(e) => setData('review', e.target.value)}
+                            value={data.comment}
+                            onChange={(e) => setData('comment', e.target.value)}
                             placeholder="Tulis komentar Anda..."
                         />
-                        {errors.review && <span className="text-red-500 text-sm">{errors.review}</span>}
+                        {errors.comment && <span className="text-red-500 text-sm">{errors.comment}</span>}
+                        
 
-
-                        {/* Rating */}
-                        <div className="mb-4">
+                        {/* Rating */}                        <div className="mb-4">
                             <Input
                                 label="Rating (1–5)"
                                 type="number"

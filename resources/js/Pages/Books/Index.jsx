@@ -48,16 +48,16 @@ export default function Index({ auth }) {
                                 <tr key={book.id}>
                                     <Table.Td>{++index + (books.current_page - 1) * books.per_page}</Table.Td>
                                     <Table.Td>
-                                    <div className="flex flex-col">
-    <span className="font-medium">{book.title}</span>
-    <span className="text-sm text-indigo-600 italic flex items-center gap-1">
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 20h9" />
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16.5 3.5l4 4L7 21H3v-4L16.5 3.5z" />
-        </svg>
-        {book.author}
-    </span>
-</div>
+                                        <div className="flex flex-col">
+                                            <span className="font-medium">{book.title}</span>
+                                            <span className="text-sm text-indigo-600 italic flex items-center gap-1">
+                                                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 20h9" />
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16.5 3.5l4 4L7 21H3v-4L16.5 3.5z" />
+                                                </svg>
+                                                {book.author}
+                                            </span>
+                                        </div>
 
                                     </Table.Td>
                                     <Table.Td>{book.publication_year}</Table.Td>

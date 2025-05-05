@@ -62,9 +62,10 @@ class ReviewController extends Controller implements HasMiddleware
     public function store(Request $request)
     {
         $validated = $request->validate([
+            'user_id' => 'required|exists:users,id',
             'book_id' => 'required|exists:books,id',
+            'comment' => 'required|string',
             'rating' => 'required|integer|min:1|max:5',
-            'review' => 'nullable|string|max:1000',
         ]);
 
         // Periksa apakah pengguna sudah memberikan review untuk buku ini
@@ -75,7 +76,7 @@ class ReviewController extends Controller implements HasMiddleware
         Review::create([
             'user_id' => auth()->id(),
             'book_id' => $validated['book_id'],
-            'comment' => $validated['comment'], // ✅ gunakan kolom yang sesuai
+            'comment' => $validated['comment'], 
             'rating' => $validated['rating'],
         ]);
         
