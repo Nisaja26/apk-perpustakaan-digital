@@ -25,7 +25,7 @@ export default function Create({ auth }) {
             onSuccess: () => {
                 Swal.fire({
                     title: 'Berhasil!',
-                    text: 'Buku berhasil ditambahkan!',
+                    text: 'Data buku telah ditambahkan!',
                     icon: 'success',
                     showConfirmButton: false,
                     timer: 1500,
@@ -34,7 +34,7 @@ export default function Create({ auth }) {
             onError: () => {
                 Swal.fire({
                     title: 'Gagal!',
-                    text: 'Terjadi kesalahan saat menambahkan buku.',
+                    text: 'Terjadi kesalahan saat menambahkan data buku.',
                     icon: 'error',
                     showConfirmButton: true,
                 });

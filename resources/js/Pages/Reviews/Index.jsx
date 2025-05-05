@@ -25,7 +25,7 @@ export default function Index({ auth }) {
                     <div className="w-full md:w-4/6">
                         <Search
                             url={route('reviews.index')}
-                            placeholder={'Cari komentar review...'}
+                            placeholder={'Cari judul buku...'}
                             filter={filters}
                         />
                     </div>
@@ -53,12 +53,7 @@ export default function Index({ auth }) {
                                     <Table.Td>{review.rating}/5</Table.Td>
                                     <Table.Td>
                                         <div className="flex items-center gap-2">
-                                            {hasAnyPermission(['reviews edit']) && (
-                                                <Button
-                                                    type="edit"
-                                                    url={route('reviews.edit', review.id)}
-                                                />
-                                            )}
+                                            
                                             {hasAnyPermission(['reviews delete']) && (
                                                 <Button
                                                     type="delete"

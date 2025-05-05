@@ -25,7 +25,7 @@ export default function Create({ auth, books }) {
             onSuccess: () => {
                 Swal.fire({
                     title: 'Berhasil!',
-                    text: 'Buku berhasil ditambahkan!',
+                    text: 'Komentar telah ditambahkan!',
                     icon: 'success',
                     showConfirmButton: false,
                     timer: 1500,
