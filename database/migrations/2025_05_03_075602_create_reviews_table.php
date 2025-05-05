@@ -13,14 +13,13 @@ return new class extends Migration
     {
         Schema::create('reviews', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
+            // Relasi ke tabel users otomatis
+            $table->foreignId('user_id')->constrained('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('book_id');
-            $table->integer('rating'); // Rating (1-5)
             $table->text('comment')->nullable(); // Comment
+            $table->integer('rating'); // Rating (1-5)
+           
             $table->timestamps();
-
-            // Relasi ke tabel books
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
             // Relasi ke tabel books
             $table->foreign('book_id')->references('id')->on('books')->onDelete('cascade');

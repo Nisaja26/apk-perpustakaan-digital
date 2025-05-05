@@ -36,6 +36,14 @@ class ReviewController extends Controller implements HasMiddleware
             ->latest()
             ->paginate(6)
             ->withQueryString();
+
+            // Render view
+        return inertia('Reviews/Index', [
+            'reviews' => $reviews,
+            'filters' => $request->only(['search'])
+        ]);
+
+
     }
 
     /**
@@ -43,8 +51,9 @@ class ReviewController extends Controller implements HasMiddleware
      */
     public function create()
     {
-        // render view
-        return inertia('Reviews/Create');
+        return inertia('Reviews/Create', [
+            'books' => Book::select('id', 'title')->get(),
+        ]);
     }
 
     /**
@@ -52,27 +61,28 @@ class ReviewController extends Controller implements HasMiddleware
      */
     public function store(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'book_id' => 'required|exists:books,id',
             'rating' => 'required|integer|min:1|max:5',
-            'comment' => 'nullable|string|max:1000',
+            'review' => 'nullable|string|max:1000',
         ]);
 
-        Review::create([
-            'user_id' => auth()->id(),
-            'book_id' => $request->book_id,
-            'rating' => $request->rating,
-            'comment' => $request->comment,
-        ]);
-
+        // Periksa apakah pengguna sudah memberikan review untuk buku ini
         if (Review::where('book_id', $request->book_id)->where('user_id', auth()->id())->exists()) {
             return back()->withErrors(['error' => 'Kamu sudah memberikan review untuk buku ini.']);
         }
+
+        Review::create([
+            'user_id' => auth()->id(),
+            'book_id' => $validated['book_id'],
+            'comment' => $validated['comment'], // ✅ gunakan kolom yang sesuai
+            'rating' => $validated['rating'],
+        ]);
         
 
-        return redirect()->route('books.show', $request->book_id)->with('success', 'Review berhasil ditambahkan!');
-    }
+        return redirect()->route('reviews.index');
 
+    }
 
     public function show(Book $book)
     {
@@ -89,7 +99,7 @@ class ReviewController extends Controller implements HasMiddleware
     public function destroy(Review $review)
     {
         $review->delete();
-        return back()->with('success', 'Review berhasil dihapus!');
+        return back();
     }
-    
+
 }

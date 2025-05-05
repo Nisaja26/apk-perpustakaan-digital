@@ -18,6 +18,12 @@ class Book extends Model
         return $this->belongsTo(Collection::class);
     }
 
+    public function review()
+    {
+        return $this->belongsTo(Review::class);
+    }
+
+
     // Menambahkan 'name' dan atribut lainnya ke dalam fillable
     protected $fillable = ['title', 'author', 'publication_year', 'category_id', 'collection_id'];
 

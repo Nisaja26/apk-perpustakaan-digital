@@ -61,4 +61,9 @@ class User extends Authenticatable
         // Mengambil semua izin yang dimiliki pengguna dan memetakan nama izin menjadi key dengan nilai true
         return $this->getAllPermissions()->mapWithKeys(fn($permission) => [$permission['name'] => true]);
     }
+
+    public function reviews()
+    {
+        return $this->HasMany(Review::class);
+    }
 }
