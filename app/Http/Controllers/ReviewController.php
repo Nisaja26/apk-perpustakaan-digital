@@ -28,11 +28,13 @@ class ReviewController extends Controller implements HasMiddleware
     public function index(Request $request)
     {
         $reviews = Review::with(['book', 'user'])
-            ->when(
-                $request->search,
-                fn($q) =>
-                $q->where('comment', 'like', '%' . $request->search . '%')
-            )
+        ->when(
+            $request->search,
+            fn($q) =>
+            $q->whereHas('book', function ($query) use ($request) {
+                $query->where('title', 'like', '%' . $request->search . '%');
+            })
+        )
             ->latest()
             ->paginate(6)
             ->withQueryString();
