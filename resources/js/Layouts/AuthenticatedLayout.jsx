@@ -159,6 +159,40 @@ export default function AuthenticatedLayout({ header, children }) {
                                     <span>Reviews</span>
                                 </NavLink>
 
+
+                                <NavLink
+                                    href={route("bookloans.index")}
+                                    active={route().current("bookloans*")}
+                                    className="flex items-center space-x-2 px-4 py-2 rounded-md text-gray-700 hover:bg-purple-400 hover:text-white transition-all duration-400"
+                                >
+                                    {/* Ikon Komentar */}
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        className="h-6 w-6"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                        strokeWidth={2}
+                                    >
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            d="M8 5v14h8V5H8z"
+                                        />
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            d="M14 10l2 2 4-4"
+                                        />
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            d="M18 14l-4 4-1-1 4-4 1 1z"
+                                        />
+                                    </svg>
+                                    <span>Bookloans</span>
+                                </NavLink>
+
                             </div>
 
 
@@ -336,6 +370,16 @@ export default function AuthenticatedLayout({ header, children }) {
                                 Reviews
                             </ResponsiveNavLink>
                         )}
+
+                        {hasAnyPermission(["bookloans index"]) && (
+                            <ResponsiveNavLink
+                                href={route("bookloans.index")}
+                                active={route().current("bookloans*")}
+                            >
+                                Bookloans
+                            </ResponsiveNavLink>
+                        )}
+
 
                     </div>
 
