@@ -50,20 +50,27 @@ class User extends Authenticatable
         ];
     }
 
-   /**
-    * Mendapatkan semua izin yang dimiliki oleh pengguna dalam bentuk array.
-    * Setiap izin dikembalikan dalam bentuk key-value, di mana nama izin menjadi key dan nilainya 'true'.
-    *
-    * @return \Illuminate\Support\Collection
-    */
-   public function getUserPermissions()
+    /**
+     * Mendapatkan semua izin yang dimiliki oleh pengguna dalam bentuk array.
+     * Setiap izin dikembalikan dalam bentuk key-value, di mana nama izin menjadi key dan nilainya 'true'.
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function getUserPermissions()
     {
         // Mengambil semua izin yang dimiliki pengguna dan memetakan nama izin menjadi key dengan nilai true
         return $this->getAllPermissions()->mapWithKeys(fn($permission) => [$permission['name'] => true]);
     }
 
+    // relasi dari review
     public function reviews()
     {
         return $this->HasMany(Review::class);
+    }
+
+    // Relasi ke BookLoan (satu user bisa memiliki banyak BookLoan)
+    public function bookLoans()
+    {
+        return $this->hasMany(BookLoan::class);
     }
 }

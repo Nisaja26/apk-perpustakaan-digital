@@ -23,6 +23,12 @@ class Book extends Model
         return $this->belongsTo(Review::class);
     }
 
+    // relasi dari bookloans
+    public function bookLoans()
+    {
+        return $this->hasMany(BookLoan::class);
+    }
+
 
     // Menambahkan 'name' dan atribut lainnya ke dalam fillable
     protected $fillable = ['title', 'author', 'publication_year', 'category_id', 'collection_id'];
