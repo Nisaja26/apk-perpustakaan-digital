@@ -17,7 +17,7 @@ class ReviewController extends Controller implements HasMiddleware
         return [
             new Middleware('permission:reviews index', only: ['index']),
             new Middleware('permission:reviews create', only: ['create', 'store']),
-            new Middleware('permission:reviews edit', only: ['edit', 'update']),
+            // new Middleware('permission:reviews edit', only: ['edit', 'update']),
             new Middleware('permission:reviews delete', only: ['destroy']),
         ];
     }

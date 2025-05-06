@@ -8,6 +8,7 @@ use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\BookloanController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -54,6 +55,8 @@ Route::middleware('auth')->group(function () {
     // route mengelola review
     Route::resource('/reviews', ReviewController::class);
     
+    // route mengelola bookloan
+    Route::resource('/bookloans', BookloanController::class);
 
 
     // Route untuk mengedit profil pengguna
